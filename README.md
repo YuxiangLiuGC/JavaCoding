@@ -1,4 +1,5 @@
 # JavaCoding
+```
 public List<List<Integer>> combinationSum2(int[] candidates, int target) {
    List<List<Integer>> list = new LinkedList<List<Integer>>();
    Arrays.sort(candidates);
@@ -19,3 +20,4 @@ private void backtrack(List<List<Integer>> list, List<Integer> tempList, int[] c
       }
    }
 }
+```
