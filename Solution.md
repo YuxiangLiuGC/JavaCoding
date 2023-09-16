@@ -1,15 +1,13 @@
 
 ###### 40. Combination Sum II
 ```java
-public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+public List<List<Integer>> combinationSum2(int[] candidates, int target){
    List<List<Integer>> list = new LinkedList<List<Integer>>();
    Arrays.sort(candidates);
    backtrack(list, new ArrayList<Integer>(), candidates, target, 0);
    return list;
 }
-
-private void backtrack(List<List<Integer>> list, List<Integer> tempList, int[] cand, int remain, int start) {
-   
+private void backtrack(List<List<Integer>> list, List<Integer> tempList, int[] cand, int remain, int start){
    if(remain < 0) return; /** no solution */
    else if(remain == 0) list.add(new ArrayList<>(tempList));
    else{
@@ -22,3 +20,6 @@ private void backtrack(List<List<Integer>> list, List<Integer> tempList, int[] c
    }
 }
 ```
+Line 15: For array like [1,1,2,5,6,7,10], the first "for" loop before any recursion will trigger continue if any duplicates detected.
+However, when the function keeps calling it self, "i" will be updated with new "start", so it won't trigger continue since "i" equal
+to "start"
