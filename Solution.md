@@ -20,6 +20,8 @@ private void backtrack(List<List<Integer>> list, List<Integer> tempList, int[] c
    }
 }
 ```
+This code uses DFS to check every possible conbination and it considers whether a number is picked or not. 
+Sorting array is to prevent dupicate combination, for array like [10,1,2,7,6,1,5], it will generate [1,7] and [7,1].
 Line 15: For array like [1,1,2,5,6,7,10], the first "for" loop before any recursion will trigger continue if any duplicates detected.
 However, when the function keeps calling it self, "i" will be updated with new "start", so it won't trigger continue since "i" equal
-to "start"
+to "start". Therefore, "tempList" could be [1,1] and now the duplicates are allowed. 
