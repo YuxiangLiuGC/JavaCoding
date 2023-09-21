@@ -28,3 +28,22 @@ class Solution {
 - **if(i > start && cand[i] == cand[i-1])**: For array like [1,1,2,5,6,7,10], in the first "for" loop, it will trigger "continue" if any duplicates detected.<br>
 - However, every time the function keeps calling it self, "i" will be updated with new "start", so it won't check duplicates when "i" equal<br>
 to "start". Therefore, "tempList" could be [1,1] and now the duplicates are allowed. 
+
+###### 1436. Destination City
+```java
+//Since there's only one destination city, if a city isn't a source city, it has to be the destination.
+public String destCity(List<List<String>> paths) {
+        Set<String> cities = new HashSet<>(); 
+        for (List<String> path : paths) {
+            cities.add(path.get(0)); 
+        }
+        
+        for (List<String> path : paths) {
+            String dest = path.get(1); 
+            if (!cities.contains(dest)) {
+                return dest; 
+            }
+        }
+        return "";
+    }
+```
