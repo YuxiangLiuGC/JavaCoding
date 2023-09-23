@@ -47,3 +47,8 @@ public String destCity(List<List<String>> paths) {
         return "";
     }
 ```
+
+###### 300. Longest Increasing Subsequence
+- Only comparing the prev and curr value doesn't work, because you may pick numbers that are not next to the previous ones.<br>
+Additionally, if the current element is greater than the previous picked element, then we can either pick it or don't pick it because<br>
+we may get a smaller element somewhere ahead which is still greater than previous and picking that would be optimal. So we try both options.
