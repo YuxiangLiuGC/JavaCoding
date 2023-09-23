@@ -51,4 +51,29 @@ public String destCity(List<List<String>> paths) {
 ###### 300. Longest Increasing Subsequence
 - Only comparing the prev and curr value doesn't work, because you may pick numbers that are not next to the previous ones.<br>
 Additionally, if the current element is greater than the previous picked element, then we can either pick it or don't pick it because<br>
-we may get a smaller element somewhere ahead which is still greater than previous and picking that would be optimal. So we try both options.
+we may get a smaller element somewhere ahead which is still greater than previous and picking that would be optimal.<br>
+- So we use dynamic programming...For each slot in dp array, we are trying to find out the longest subsequence by far "i" if including the<br>
+curr "i"(The reason of plus 1). We are not sure which one is the optimal, so we use "j" to traverse to find out
+- Don't forget to go through each element in dp to find out the longest subsequence
+```java
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        int[] dp = new int[nums.length];
+        Arrays.fill(dp, 1);
+        
+        for(int i=1; i<nums.length; i++){
+            for(int j=0; j<i; j++){
+                if(nums[i]>nums[j]){
+                    dp[i] = Math.max(dp[i], dp[j]+1);
+                }
+            }
+        }
+        
+        int longest = 1;
+        for(int num: dp){
+            longest = Math.max(longest, num);
+        }
+        return longest;
+    }
+}
+```
