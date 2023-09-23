@@ -48,6 +48,8 @@ class Solution {
     }
 }
 ```
+- Time: O(n*n^2), where n is the length of input array
+  
 ###### 1436. Destination City
 ```java
 //Since there's only one destination city, if a city isn't a source city, it has to be the destination.
