@@ -29,6 +29,25 @@ class Solution {
 - However, every time the function keeps calling it self, "i" will be updated with new "start", so it won't check duplicates when "i" equal<br>
 to "start". Therefore, "tempList" could be [1,1] and now the duplicates are allowed. 
 
+###### 78. Subsets
+```java
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> list = new ArrayList<>();
+        helper(nums, list, new ArrayList<Integer>(), 0);
+        return list;
+    }
+    private void helper(int[] nums, List<List<Integer>> list, List<Integer> temp, int start){
+        list.add(new ArrayList<>(temp));
+        
+        for(int i=start; i<nums.length; i++){
+            temp.add(nums[i]);
+            helper(nums, list, temp, i+1);
+            temp.remove(temp.size()-1);
+        }
+    }
+}
+```
 ###### 1436. Destination City
 ```java
 //Since there's only one destination city, if a city isn't a source city, it has to be the destination.
