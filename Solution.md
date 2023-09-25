@@ -29,6 +29,30 @@ class Solution {
 - However, every time the function keeps calling it self, "i" will be updated with new "start", so it won't check duplicates when "i" equal<br>
 to "start". Therefore, "tempList" could be [1,1] and now the duplicates are allowed. 
 
+###### 39. Combination Sum
+```java
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> list = new ArrayList<>();
+        Arrays.sort(candidates);
+        helper(candidates, list, new ArrayList<Integer>(), target, 0);
+        return list;
+    }
+    private void helper(int[] candidates, List<List<Integer>> list, List<Integer> temp, int remain, int start){
+        if(remain<0) return;
+        else if(remain==0){
+            list.add(new ArrayList<Integer>(temp));
+        }else{
+            for(int i=start; i<candidates.length; i++){
+                temp.add(candidates[i]);
+                helper(candidates, list, temp, remain-candidates[i], i);
+                temp.remove(temp.size()-1);
+            }
+        }
+    }
+}
+```
+
 ###### 78. Subsets
 ```java
 class Solution {
