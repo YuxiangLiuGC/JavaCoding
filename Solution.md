@@ -74,8 +74,8 @@ class Solution {
 ```
 - Time: O(n*n^2), where n is the length of input array
 
-46. Permutations
-###### ```java
+###### 46. Permutations
+```java
 class Solution {
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> list = new ArrayList<>();
