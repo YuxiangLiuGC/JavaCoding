@@ -73,6 +73,29 @@ class Solution {
 }
 ```
 - Time: O(n*n^2), where n is the length of input array
+
+46. Permutations
+###### ```java
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> list = new ArrayList<>();
+        helper(list, nums, new ArrayList<Integer>());
+        return list;
+    }
+    private void helper(List<List<Integer>> list, int[] nums, List<Integer> temp){
+        if(temp.size()==nums.length){
+            list.add(new ArrayList<Integer>(temp));
+        }else{
+            for(int i=0; i<nums.length; i++){
+                if(temp.contains(nums[i])) continue;
+                temp.add(nums[i]);
+                helper(list, nums, temp);
+                temp.remove(temp.size()-1);
+            }
+        }
+    }
+}
+```
   
 ###### 1436. Destination City
 ```java
