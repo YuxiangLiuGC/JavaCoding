@@ -96,6 +96,8 @@ class Solution {
     }
 }
 ```
+- Time complexity: O(n*n!)
+- Given a set of length n, the number of permutations is n factorial. There are n options for the first number, n - 1 for the second, and so on.
   
 ###### 1436. Destination City
 ```java
