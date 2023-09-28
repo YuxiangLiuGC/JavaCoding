@@ -29,6 +29,30 @@ class Solution {
 - However, every time the function keeps calling it self, "i" will be updated with new "start", so it won't check duplicates when "i" equal<br>
 to "start". Therefore, "tempList" could be [1,1] and now the duplicates are allowed. 
 
+###### 90. Subsets II
+```java
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> list = new ArrayList<>();
+        Arrays.sort(nums);
+        helper(nums, list, new ArrayList<Integer>(), 0);
+        return list;
+    }
+    private void helper(int[] nums, List<List<Integer>> list, List<Integer> temp, int start){
+        list.add(new ArrayList<>(temp));
+        
+        for(int i=start; i<nums.length; i++){
+            if(i>start && nums[i]==nums[i-1]){
+                continue;
+            }
+            temp.add(nums[i]);
+            helper(nums, list, temp, i+1);
+            temp.remove(temp.size()-1);
+        }
+    }
+}
+```
+
 ###### 39. Combination Sum
 ```java
 class Solution {
