@@ -171,3 +171,40 @@ class Solution {
     }
 }
 ```
+###### 79. Word Search
+```java
+class Solution {
+    boolean[][] visited; //The same letter cell may not be used more than once
+    public boolean exist(char[][] board, String word) {
+        visited = new boolean[board.length][board[0].length];
+        for(int row=0; row<board.length; row++){
+            for(int col=0; col<board[0].length; col++){
+                if(helper(board, row, col, word, 0)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    private boolean helper(char[][] board, int row, int col, String word, int index){
+        if(index==word.length()){
+            return true;
+        }
+        if(row<0 || row>=board.length || col<0 || col>=board[0].length || word.charAt(index)!=board[row][col]
+          || visited[row][col]){
+            return false;
+        }
+        visited[row][col]=true;
+        if(helper(board, row+1, col, word, index+1)||
+            helper(board, row, col+1, word, index+1)||
+            helper(board, row-1, col, word, index+1)||
+             helper(board, row, col-1, word, index+1)){
+            return true;
+        }
+        visited[row][col]=false;
+        return false;
+    }
+}
+```
+- Time Complexity: O(N*3^L), where N is the number of cells in the board and L is the length of the word to be matched.
+- Initially we could have at most 4 directions to explore, but further the choices are reduced into 3 (since we won't go back to where we come from).
