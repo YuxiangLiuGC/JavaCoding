@@ -27,8 +27,29 @@ class Solution {
 - Sorting array is to prevent dupicate combination, for array like [10,1,2,7,6,1,5], it will generate [1,7] and [7,1] if not sorted.<br>
 - **if(i > start && cand[i] == cand[i-1])**: For array like [1,1,2,5,6,7,10], in the first "for" loop, it will trigger "continue" if any duplicates detected.<br>
 - However, every time the function keeps calling it self, "i" will be updated with new "start", so it won't check duplicates when "i" equal<br>
-to "start". Therefore, "tempList" could be [1,1] and now the duplicates are allowed. 
+to "start". Therefore, "tempList" could be [1,1] and now the duplicates are allowed.
 
+###### 78. Subsets
+```java
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> list = new ArrayList<>();
+        helper(nums, list, new ArrayList<Integer>(), 0);
+        return list;
+    }
+    private void helper(int[] nums, List<List<Integer>> list, List<Integer> temp, int start){
+        list.add(new ArrayList<>(temp));
+        
+        for(int i=start; i<nums.length; i++){
+            temp.add(nums[i]);
+            helper(nums, list, temp, i+1);
+            temp.remove(temp.size()-1);
+        }
+    }
+}
+```
+- Time: O(n*n^2), where n is the length of input array
+- 
 ###### 90. Subsets II
 ```java
 class Solution {
@@ -77,27 +98,6 @@ class Solution {
 }
 ```
 
-###### 78. Subsets
-```java
-class Solution {
-    public List<List<Integer>> subsets(int[] nums) {
-        List<List<Integer>> list = new ArrayList<>();
-        helper(nums, list, new ArrayList<Integer>(), 0);
-        return list;
-    }
-    private void helper(int[] nums, List<List<Integer>> list, List<Integer> temp, int start){
-        list.add(new ArrayList<>(temp));
-        
-        for(int i=start; i<nums.length; i++){
-            temp.add(nums[i]);
-            helper(nums, list, temp, i+1);
-            temp.remove(temp.size()-1);
-        }
-    }
-}
-```
-- Time: O(n*n^2), where n is the length of input array
-
 ###### 46. Permutations
 ```java
 class Solution {
@@ -122,6 +122,42 @@ class Solution {
 ```
 - Time complexity: O(n*n!)
 - Given a set of length n, the number of permutations is n factorial. There are n options for the first number, n - 1 for the second, and so on.
+
+###### 131. Palindrome Partitioning
+```java
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> list = new ArrayList<>();
+        helper(list, s, new ArrayList<String>(), 0);
+        return list;
+    }
+    private void helper(List<List<String>> list, String s, List<String> temp, int start){
+        if(start==s.length()){
+            list.add(new ArrayList<String>(temp));
+        }else{
+            for(int i=start; i<s.length(); i++){
+                if(isPalindrome(s, start, i)){
+                    temp.add(s.substring(start, i+1));
+                    helper(list, s, temp, i+1);
+                    temp.remove(temp.size()-1);
+                }
+            }
+        }
+    }
+    private boolean isPalindrome(String s, int left, int right){
+        while(left<right){
+            if(s.charAt(left)!=s.charAt(right)){
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+}
+```
+- Time Complexity : O(N*2^N), where N is the length of string s.
+- there could be 2^N possible substrings in the worst case. For each substring, it takes O(N) time to generate the substring and determine if it is a palindrome or not.
   
 ###### 1436. Destination City
 ```java
