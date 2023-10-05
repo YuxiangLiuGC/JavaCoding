@@ -173,7 +173,7 @@ class Solution {
         if(digits.isEmpty()){
             res.add(combination);
         }else{
-            String letters = map[digits.charAt(0)-'2'];
+            String letters = map[digits.charAt(0)-'2']; // '2'-'2' = 0
             for(char letter: letters.toCharArray()){
                 helper(combination+letter, res, digits.substring(1), map);
             }
