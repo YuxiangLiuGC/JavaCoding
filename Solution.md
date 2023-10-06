@@ -183,6 +183,50 @@ class Solution {
 ```
 - Time complexity: ( O(4^n) ), where ( n ) is the length of the input string. In the worst case, each digit can represent 4 letters, so there will be 4 recursive calls for each digit.
   
+###### 51. N-Queens
+```java
+class Solution {
+        Set<Integer> colCheck = new HashSet<>();
+        Set<Integer> diag1 = new HashSet<>();
+        Set<Integer> diag2 = new HashSet<>();
+    
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> res = new ArrayList<>();
+        
+        helper(res, new ArrayList<String>(), 0, n);
+        return res;
+    }
+    private void helper(List<List<String>> res, List<String> temp, int row, int n){
+        if(row==n){
+            res.add(new ArrayList<>(temp));
+        }else{
+            for(int col=0; col<n; col++){
+                if(colCheck.contains(col) || diag1.contains(row+col) || diag2.contains(row-col)){
+                    continue;
+                }
+                char[] arr = new char[n];
+                Arrays.fill(arr,'.');
+                arr[col] = 'Q';
+                String s = new String(arr);
+                
+                temp.add(s);
+                colCheck.add(col);
+                diag1.add(row+col);
+                diag2.add(row-col);
+                
+                helper(res, temp, row+1, n);
+                
+                temp.remove(s);
+                colCheck.remove(col);
+                diag1.remove(row+col);
+                diag2.remove(row-col);
+            }
+        }
+    }
+}
+```
+- Time complexity: O(N!)
+  
 ###### 1436. Destination City
 ```java
 //Since there's only one destination city, if a city isn't a source city, it has to be the destination.
