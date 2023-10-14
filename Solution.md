@@ -312,3 +312,50 @@ class Solution {
 ```
 - Time Complexity: O(N*3^L), where N is the number of cells in the board and L is the length of the word to be matched.
 - Initially we could have at most 4 directions to explore, but further the choices are reduced into 3 (since we won't go back to where we come from).
+
+###### 416. Partition Equal Subset Sum
+Approach 1: DFS (Time Limit Exceeded)
+```java
+class Solution {
+    public boolean canPartition(int[] nums) {
+        int sum=0;
+        for(int num: nums){
+            sum+=num;
+        }
+        if(sum%2!=0) return false;
+        sum = sum/2;
+        return helper(nums, 0, sum);
+    }
+    private Boolean helper(int[] nums, int pos, int sum){
+        if(sum==0) return true;
+        if(pos>=nums.length || sum<0) return false;
+        Boolean result = helper(nums, pos+1, sum-nums[pos]) || helper(nums, pos+1, sum); 
+        return result;
+    }
+}
+```
+Approach 2: DP Memoization
+```java
+class Solution {
+    Boolean[][] arr;
+    public boolean canPartition(int[] nums) {
+        int sum=0;
+        for(int num: nums){
+            sum+=num;
+        }
+        if(sum%2!=0) return false;
+        sum = sum/2;
+        arr = new Boolean[nums.length+1][sum+1];
+        return helper(nums, 0, sum);
+    }
+    private Boolean helper(int[] nums, int pos, int sum){
+        if(sum==0) return true;
+        if(pos>=nums.length || sum<0) return false;
+        
+        if(arr[pos][sum]!=null) return arr[pos][sum];
+        Boolean result = helper(nums, pos+1, sum-nums[pos]) || helper(nums, pos+1, sum); 
+        arr[pos][sum] = result;
+        return result;
+    }
+}
+```
