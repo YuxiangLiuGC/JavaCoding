@@ -389,3 +389,27 @@ class Solution {
 //                fast
 //if not fast.next!=null will cause error bc fast is null already
 ```
+
+###### 14. Longest Common Prefix
+```java
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        int shortest=Integer.MAX_VALUE;
+        for(int i=0; i<strs.length; i++){
+            if(strs[i].length()<shortest){
+                shortest = strs[i].length();
+            }
+        }
+        int i=0;
+        for(i=0; i<shortest; i++){
+            char c = strs[0].charAt(i);
+            for(int j=1; j<strs.length; j++){
+                if(strs[j].charAt(i) != c){
+                    return strs[0].substring(0, i); // cannot use break here bc it only stops the inner for loop
+                }
+            }
+        }
+        return strs[0].substring(0, i);
+    }
+}
+```
