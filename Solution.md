@@ -359,3 +359,33 @@ class Solution {
     }
 }
 ```
+
+###### 19. Remove Nth Node From End of List
+```java
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode fast=head, slow=head;
+        
+        for(int i=0; i<n; i++){
+            fast = fast.next;
+        }
+        if(fast==null) return head.next;
+        while(fast.next!=null){
+            slow = slow.next;
+            fast = fast.next;
+        }
+        slow.next = slow.next.next;
+        
+    return head;
+    }
+}
+//1  ->  2   ->   3  ->   4  ->   5  ->  null   (n=2)
+//               fast                           (The for loop will result in)
+//slow                                          (Where slow starts)
+//               slow            fast           (The while loop will result in)
+
+//Why do we need if(fast==null) return head.next? 
+//1  ->   2  ->   null     (n=2)
+//                fast
+//if not fast.next!=null will cause error bc fast is null already
+```
