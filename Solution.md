@@ -445,3 +445,41 @@ class Solution {
     }
 }
 ```
+###### 438. Find All Anagrams in a String
+```java
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> res = new ArrayList<>();
+        if(s.length()<p.length()) return res;
+             
+        Map<Character, Integer> sMap = new HashMap<>();
+        Map<Character, Integer> pMap = new HashMap<>();
+        
+        for(int i=0; i<p.length(); i++){
+            sMap.put(s.charAt(i), sMap.getOrDefault(s.charAt(i),0)+1);
+            pMap.put(p.charAt(i), pMap.getOrDefault(p.charAt(i),0)+1);
+        }
+        if(sMap.equals(pMap)){
+            res.add(0);
+        }
+        int left=0, right=p.length();
+        while(right<s.length()){
+            char addition = s.charAt(right);
+            sMap.put(addition, sMap.getOrDefault(addition, 0)+1);
+            
+            char removal = s.charAt(left);
+            sMap.put(removal, sMap.get(removal)-1);
+            left++;
+            
+            if(sMap.get(removal)==0){
+                sMap.remove(removal);
+            }
+            if(sMap.equals(pMap)){
+                res.add(left);
+            }
+            right++;
+        }
+        return res;
+    }
+}
+```
