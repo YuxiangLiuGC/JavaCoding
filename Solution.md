@@ -532,3 +532,43 @@ class Solution {
     }
 }
 ```
+
+###### 36. Valid Sudoku
+```java
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        Set<Character>[] rows = new HashSet[9];
+        Set<Character>[] cols = new HashSet[9];
+        Set<Character>[] boxes = new HashSet[9];
+
+        for(int i=0; i<9; i++){
+            rows[i] = new HashSet<Character>();
+            cols[i] = new HashSet<Character>();
+            boxes[i] = new HashSet<Character>();
+        }
+
+        for(int i=0; i<board.length; i++){
+            for(int j=0; j<board[0].length; j++){
+                char target = board[i][j];
+                if(target=='.') continue;
+                if(rows[i].contains(target)){
+                    return false;
+                }
+                rows[i].add(target);
+
+                if(cols[j].contains(target)){
+                    return false;
+                }
+                cols[j].add(target);
+                //Calculate which grid it belongs to
+                int index = (i/3)*3 + j/3;
+                if(boxes[index].contains(target)){
+                    return false;
+                }
+                boxes[index].add(target);
+            }
+        }
+        return true;
+    }
+}
+```
