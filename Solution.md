@@ -560,7 +560,7 @@ class Solution {
                     return false;
                 }
                 cols[j].add(target);
-                //Calculate which grid it belongs to
+                //Calculate which grid it belongs to. Each row has 3 boxes so it times 3
                 int index = (i/3)*3 + j/3;
                 if(boxes[index].contains(target)){
                     return false;
