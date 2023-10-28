@@ -611,7 +611,7 @@ class Solution {
             if(nums[i]!=nums[i-1]){
                 if(nums[i]==nums[i-1]+1){
                     curr++;
-                }else{
+                }else{ // subsequence stoped
                     longest = Math.max(longest, curr);
                     curr = 1;
                 }
@@ -621,3 +621,4 @@ class Solution {
     }
 }
 ```
+
