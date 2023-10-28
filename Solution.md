@@ -597,3 +597,27 @@ public class Codec {
     }
 }
 ```
+
+###### 128. Longest Consecutive Sequence
+```java
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        if(nums.length==0) return 0;
+        Arrays.sort(nums);
+        int longest=1, curr=1; // As least the longest and curr are 1
+
+        // 3 cases after sorted: when nums[i] to nums[i-1] is "more than plus 1", "equal to plus 1" and "just equal"
+        for(int i=1; i<nums.length; i++){ 
+            if(nums[i]!=nums[i-1]){
+                if(nums[i]==nums[i-1]+1){
+                    curr++;
+                }else{
+                    longest = Math.max(longest, curr);
+                    curr = 1;
+                }
+            }
+        }
+        return Math.max(longest, curr); 
+    }
+}
+```
