@@ -599,6 +599,7 @@ public class Codec {
 ```
 
 ###### 128. Longest Consecutive Sequence
+Approach 1: sorting
 ```java
 class Solution {
     public int longestConsecutive(int[] nums) {
@@ -621,4 +622,29 @@ class Solution {
     }
 }
 ```
+Approach 2: HashSet
+```java
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        if(nums.length==0) return 0;
+        Set<Integer> set = new HashSet<>();
+        int longest = 1, count = 1;;
 
+        for(int num: nums){
+            set.add(num);
+        }
+        for(int num: nums){
+            if(!set.contains(num-1)){
+                int x = num;
+                count = 1;
+                while(set.contains(x+1)){
+                    count++;
+                    x++;
+                }
+            }
+            longest = Math.max(longest, count);
+        }
+        return longest;
+    }
+}
+```
