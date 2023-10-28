@@ -572,3 +572,28 @@ class Solution {
     }
 }
 ```
+
+###### 271. Encode and Decode Strings
+```java
+public class Codec {
+
+    // Encodes a list of strings to a single string.
+    public String encode(List<String> strs) {
+        StringBuilder sb = new StringBuilder();
+        for(String s: strs){
+            sb.append(s.replace("#", "##")).append(" # ");
+        }
+        return sb.toString();
+    }
+
+    // Decodes a single string to a list of strings.
+    public List<String> decode(String s) {
+        List<String> res = new ArrayList<>();
+        String[] arr = s.split(" # ", -1); // We need -1 bc empty string "" need to be kept
+        for(int i=0; i<arr.length-1; i++){ // trailing empty string
+            res.add(arr[i].replace("##", "#"));
+        }
+        return res;
+    }
+}
+```
