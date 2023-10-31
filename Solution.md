@@ -423,7 +423,7 @@ class Solution {
         int count = 0;
         
         while(i<s.length()){
-            char c = s.charAt(i);
+            char c = s.charAt(i); // Assume s is valid and the first character is number
             i++; // we need to plus 1 before we go to the subproblem
             
             if(c=='['){
