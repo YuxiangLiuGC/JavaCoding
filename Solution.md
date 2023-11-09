@@ -648,3 +648,21 @@ class Solution {
     }
 }
 ```
+###### 235. Lowest Common Ancestor of a Binary Search Tree
+```java
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(root==null) return null;
+        while(root!=null){
+            if(p.val<root.val && q.val<root.val){
+                root = root.left;
+            }else if(p.val>root.val && q.val>root.val){
+                root = root.right;
+            }else{
+                return root;
+            }
+        }
+        return null;
+    }
+}
+```
