@@ -666,3 +666,24 @@ class Solution {
     }
 }
 ```
+
+###### 102. Binary Tree Level Order Traversal
+```java
+class Solution {
+    List<List<Integer>> res = new ArrayList<>();
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        if(root==null) return res;
+        helper(root, 0);
+        return res;
+    }
+    private void helper(TreeNode root, int level){
+        if(root==null) return;
+        if(res.size()==level){
+            res.add(new ArrayList<>());
+        }
+        res.get(level).add(root.val);
+        helper(root.left, level+1);
+        helper(root.right, level+1);
+    }
+}
+```
