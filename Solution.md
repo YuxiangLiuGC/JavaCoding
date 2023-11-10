@@ -705,3 +705,21 @@ class Solution {
     }
 }
 ```
+
+###### 1448. Count Good Nodes in Binary Tree
+```java
+class Solution {
+    int count=0;
+    public int goodNodes(TreeNode root) {
+        helper(root, Integer.MIN_VALUE);
+        return count;
+    }
+    private void helper(TreeNode root, int greatest){
+        if(root==null) return;
+        if(root.val >= greatest) count++;
+        greatest = Math.max(greatest,root.val);
+        helper(root.left, greatest);
+        helper(root.right, greatest);
+    }
+}
+```
