@@ -738,3 +738,20 @@ class Solution {
     }
 }
 ```
+
+###### 230. Kth Smallest Element in a BST
+```java
+class Solution {
+    List<Integer> list = new ArrayList<>();
+    public int kthSmallest(TreeNode root, int k) {
+        inOrder(root);
+        return list.get(k-1);
+    }
+    private void inOrder(TreeNode root){
+        if(root==null) return;
+        inOrder(root.left);
+        list.add(root.val);
+        inOrder(root.right);
+    }
+}
+```
