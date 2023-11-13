@@ -765,15 +765,17 @@ class Solution {
     }
     private TreeNode helper(int[] preorder, int[] inorder, int stop){
         if(p == preorder.length) return null;
-        if(inorder[i] == stop){ // skip the root bc it's added already from preorder
+        if(inorder[i] == stop){ // until we reach the last element to build the subtree
             i++;
             return null;
         }
         TreeNode root = new TreeNode(preorder[p]);
         p++;
-        root.left = helper(preorder, inorder, root.val);//Based on root to build left subtree
-        root.right = helper(preorder, inorder, stop);
+        root.left = helper(preorder, inorder, root.val);//Keep passing new root to subtree
+        root.right = helper(preorder, inorder, stop);//e.g. the last element
         return root;
     }
 }
+//"root.right = helper(preorder, inorder, stop);" Stop is not necessarily the same as the value of the current root.
+//The recursion needs to bounce back from the bottom, so we use stop which is passed in, instead of the node we just creacted. 
 ```
