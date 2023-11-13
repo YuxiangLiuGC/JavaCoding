@@ -765,7 +765,7 @@ class Solution {
     }
     private TreeNode helper(int[] preorder, int[] inorder, int stop){
         if(p == preorder.length) return null;
-        if(inorder[i] == stop){ // until we reach the last element to build the subtree
+        if(inorder[i] == stop){ // until we cover the last element to build the subtree and meet root
             i++;
             return null;
         }
