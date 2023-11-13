@@ -772,7 +772,7 @@ class Solution {
         TreeNode root = new TreeNode(preorder[p]);
         p++;
         root.left = helper(preorder, inorder, root.val);//Keep passing new root to subtree
-        root.right = helper(preorder, inorder, stop);//e.g. the last element
+        root.right = helper(preorder, inorder, stop);
         return root;
     }
 }
