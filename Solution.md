@@ -771,13 +771,13 @@ class Solution {
         }
         TreeNode root = new TreeNode(preorder[p]);
         p++;
-        root.left = helper(preorder, inorder, root.val);//Keep passing new root to subtree
+        root.left = helper(preorder, inorder, root.val);//Keep passing new stop to subtree
         root.right = helper(preorder, inorder, stop);
         return root;
     }
 }
-//"root.right = helper(preorder, inorder, stop);" Stop is not necessarily the same as the value of the current root.
-//The recursion needs to bounce back from the bottom, so we use stop which is passed in, instead of the node we just creacted. 
+// We don't know where the right subtree need to be split in the first place, so we pass in stop
+// Keep partitioning until we reach the last node so that inorder[i] equals stop
 ```
 
 ###### 124. Binary Tree Maximum Path Sum
