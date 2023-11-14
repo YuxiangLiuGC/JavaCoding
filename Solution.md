@@ -804,3 +804,27 @@ class Solution {
 // When going up, we need to pick a path that is either left or right as the return value.
 // If either the sum of left and right are neagtive, we rather not include either of them
 ```
+
+###### 297. Serialize and Deserialize Binary Tree
+```java
+public class Codec {
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        if(root==null) return "#";
+        return root.val + "," + serialize(root.left) + "," + serialize(root.right);
+    }
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        Queue<String> queue = new LinkedList<>(Arrays.asList(data.split(",")));
+        return helper(queue);
+    }
+    private TreeNode helper(Queue<String> queue){
+        String s = queue.poll();
+        if(s.equals("#")) return null; // Use equals to compare strings
+        TreeNode root = new TreeNode(Integer.valueOf(s));
+        root.left = helper(queue);
+        root.right = helper(queue);
+        return root;
+    }
+}
+```
