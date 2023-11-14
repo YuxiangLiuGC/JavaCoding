@@ -776,7 +776,7 @@ class Solution {
         return root;
     }
 }
-// We don't know where the right subtree need to be split in the first place, so we pass in stop
+// We don't know where the right subtree need to be split in the first place, so we pass in MIN_VALUE
 // Keep partitioning until we reach the last node so that inorder[i] equals stop
 ```
 
