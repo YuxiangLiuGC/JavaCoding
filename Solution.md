@@ -779,3 +779,28 @@ class Solution {
 //"root.right = helper(preorder, inorder, stop);" Stop is not necessarily the same as the value of the current root.
 //The recursion needs to bounce back from the bottom, so we use stop which is passed in, instead of the node we just creacted. 
 ```
+
+###### 124. Binary Tree Maximum Path Sum
+```java
+class Solution {
+    int max = Integer.MIN_VALUE;
+    public int maxPathSum(TreeNode root) {
+        helper(root);
+        return max;
+    }
+    private int helper(TreeNode root){
+        if(root==null) return 0;
+
+        int left = Math.max(helper(root.left), 0);// Include path or not
+        int right = Math.max(helper(root.right), 0);
+        
+        max = Math.max(max, root.val + left + right);
+
+        return root.val + Math.max(left, right);
+    }
+}
+// For every node, we try to include path from both left and right side so we won't
+// miss any chance of finding the path from a subtree that has the largest value.
+// When going up, we need to pick a path that is either left or right as the return value.
+// If either the sum of left and right are neagtive, we rather not include either of them
+```
