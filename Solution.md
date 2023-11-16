@@ -828,3 +828,58 @@ public class Codec {
     }
 }
 ```
+
+###### 208. Implement Trie (Prefix Tree)
+```java
+class TrieNode{
+    Boolean isWord;
+    TrieNode[] array;
+
+    public TrieNode(){
+        this.isWord = false;
+        this.array = new TrieNode[26];
+    }
+}
+class Trie {
+    TrieNode root;
+    public Trie() {
+       root = new TrieNode();
+    }
+    
+    public void insert(String word) {
+        TrieNode node = root;
+        for(char c: word.toCharArray()){
+            int i = c - 'a';
+            if(node.array[i]==null){
+                node.array[i] = new TrieNode();
+            }
+            node = node.array[i];
+        }
+        node.isWord = true;
+    }
+    
+    public boolean search(String word) {
+        TrieNode node = root;
+        for(char c: word.toCharArray()){
+            int i = c - 'a';
+            if(node.array[i]==null){
+                return false;
+            }
+            node = node.array[i];
+        }
+        return node.isWord;
+    }
+    
+    public boolean startsWith(String prefix) {
+        TrieNode node = root;
+        for(char c: prefix.toCharArray()){
+            int i = c - 'a';
+            if(node.array[i]==null){
+                return false;
+            }
+            node = node.array[i];
+        }
+        return true;
+    }
+}
+```
