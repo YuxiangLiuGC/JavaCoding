@@ -832,7 +832,7 @@ public class Codec {
 ###### 208. Implement Trie (Prefix Tree)
 ```java
 class TrieNode{
-    Boolean isWord;
+    boolean isWord;
     TrieNode[] array;
 
     public TrieNode(){
