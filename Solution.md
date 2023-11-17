@@ -832,12 +832,12 @@ public class Codec {
 ###### 208. Implement Trie (Prefix Tree)
 ```java
 class TrieNode{
-    boolean isWord;
-    TrieNode[] array;
+    Boolean isWord;
+    Map<Character, TrieNode> map;
 
     public TrieNode(){
         this.isWord = false;
-        this.array = new TrieNode[26];
+        this.map = new HashMap<>();
     }
 }
 class Trie {
@@ -849,11 +849,10 @@ class Trie {
     public void insert(String word) {
         TrieNode node = root;
         for(char c: word.toCharArray()){
-            int i = c - 'a';
-            if(node.array[i]==null){
-                node.array[i] = new TrieNode();
+            if(!node.map.containsKey(c)){
+                node.map.put(c, new TrieNode());
             }
-            node = node.array[i];
+            node = node.map.get(c);
         }
         node.isWord = true;
     }
@@ -861,11 +860,10 @@ class Trie {
     public boolean search(String word) {
         TrieNode node = root;
         for(char c: word.toCharArray()){
-            int i = c - 'a';
-            if(node.array[i]==null){
+            if(!node.map.containsKey(c)){
                 return false;
             }
-            node = node.array[i];
+            node = node.map.get(c);
         }
         return node.isWord;
     }
@@ -873,11 +871,10 @@ class Trie {
     public boolean startsWith(String prefix) {
         TrieNode node = root;
         for(char c: prefix.toCharArray()){
-            int i = c - 'a';
-            if(node.array[i]==null){
+            if(!node.map.containsKey(c)){
                 return false;
             }
-            node = node.array[i];
+            node = node.map.get(c);
         }
         return true;
     }
