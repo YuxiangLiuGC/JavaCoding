@@ -883,3 +883,53 @@ class Trie {
     }
 }
 ```
+
+###### 211. Design Add and Search Words Data Structure
+```java
+class TrieNode{
+    boolean isWord;
+    Map<Character, TrieNode> children;
+    public TrieNode(){
+        this.isWord = false;
+        children = new HashMap<>();
+    }
+}
+class WordDictionary {
+    TrieNode root;
+    public WordDictionary() {
+        root = new TrieNode();
+    }
+    
+    public void addWord(String word) {
+        TrieNode node = root;
+        for(char c: word.toCharArray()){
+            if(!node.children.containsKey(c)){
+                node.children.put(c, new TrieNode());
+            }
+            node = node.children.get(c);
+        }
+        node.isWord = true;
+    }
+    
+    public boolean search(String word) {
+        return helper(word, root, 0);
+    }
+    private boolean helper(String word, TrieNode node, int index){
+        if(index==word.length()) return node.isWord;
+        char c = word.charAt(index);
+        if(c=='.'){
+            for(TrieNode child: node.children.values()){
+                // If any child works eventually
+                if(helper(word, child, index+1)) return true; 
+            }
+            return false;
+        }else{
+            if(node.children.containsKey(c)){
+                return helper(word, node.children.get(c), index+1);
+            }else{
+                return false;
+            }
+        }
+    }
+}
+```
