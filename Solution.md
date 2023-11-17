@@ -960,7 +960,7 @@ class Solution {
             return false;
         }
         char temp = board[row][col];
-        board[row][col] = '#';
+        board[row][col] = '#'; //mark visited
         boolean found = helper(board, s, row+1, col, i+1) ||
                         helper(board, s, row, col+1, i+1) ||
                         helper(board, s, row-1, col, i+1) ||
