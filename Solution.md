@@ -932,6 +932,7 @@ class WordDictionary {
 ```
 
 ###### 212. Word Search II
+Approach 1: Brute force DFS (Time Limit Exceeded)
 ```java
 class Solution {
     List<String> res = new ArrayList<>();
@@ -971,3 +972,61 @@ class Solution {
     }
 }
 ```
+Time complexity: O( w * mn * 4^(mn) ), given m x n board, w is the number of words
+
+Approach 2: Optimized DFS using tire
+```java
+class TrieNode{
+    Map<Character, TrieNode> children;
+    String word;
+    public TrieNode(){
+        this.children = new HashMap<>();
+        this.word = null;
+    }
+}
+class Solution {
+    Set<String> set = new HashSet<>();
+    public List<String> findWords(char[][] board, String[] words) {
+        TrieNode root = buildTrie(words);
+        for(int i=0; i<board.length; i++){
+            for(int j=0; j<board[0].length; j++){
+                helper(board, root, i, j);
+            }
+        }
+        return new ArrayList<>(set);
+    }
+    private TrieNode buildTrie(String[] words){
+        TrieNode root = new TrieNode();
+        for(String s: words){
+            TrieNode node = root; //Reset
+            for(char c: s.toCharArray()){
+                if(!node.children.containsKey(c)){
+                    node.children.put(c, new TrieNode());
+                }
+                node = node.children.get(c);
+            }
+            node.word = s;
+        }
+        return root;
+    }
+    private void helper(char[][] board, TrieNode node, int row, int col){
+        if(row<0 || col<0 || row==board.length || col==board[0].length ||
+           board[row][col]=='#' || !node.children.containsKey(board[row][col])){
+               return;
+        }
+        char c = board[row][col];
+        if(node.children.get(c).word!=null){
+            set.add(node.children.get(c).word);
+        }
+        node = node.children.get(c);
+
+        board[row][col] = '#';
+        helper(board, node, row+1, col);
+        helper(board, node, row, col+1);
+        helper(board, node, row-1, col);
+        helper(board, node, row, col-1);
+        board[row][col] = c;
+    }
+}
+```
+Time complexity: O( mn * 4^(mn) ), given m x n board
