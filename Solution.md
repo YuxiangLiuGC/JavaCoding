@@ -1030,3 +1030,42 @@ class Solution {
 }
 ```
 Time complexity: O( mn * 4^(mn) ), given m x n board
+
+###### 973. K Closest Points to Origin
+```java
+class Solution {
+    public int[][] kClosest(int[][] points, int k) {
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b)->getDistance(a)-getDistance(b));
+        for(int[] arr: points){
+            pq.add(arr);
+        }
+        int[][] res = new int[k][2];
+        for(int i=0; i<k; i++){
+            res[i] = pq.poll();
+        }
+        return res;
+    }
+    private int getDistance(int[] arr){
+        return arr[0]*arr[0] + arr[1]*arr[1];
+    }
+}
+```
+Use compareTo to compare different date type than the data type of PriorityQueue
+```java
+class Solution {
+    public int[][] kClosest(int[][] points, int k) {
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b)->getDistance(a).compareTo(getDistance(b)));
+        for(int[] arr: points){
+            pq.add(arr);
+        }
+        int[][] res = new int[k][2];
+        for(int i=0; i<k; i++){
+            res[i] = pq.poll();
+        }
+        return res;
+    }
+    private Double getDistance(int[] arr){
+        return Math.pow(arr[0],2)+ Math.pow(arr[1],2);
+    }
+}
+```
