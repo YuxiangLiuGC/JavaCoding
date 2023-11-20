@@ -1069,3 +1069,45 @@ class Solution {
     }
 }
 ```
+
+###### 621. Task Scheduler
+```java
+class Task{
+    int freq, lastUsed = 0;
+    public Task(int freq){
+        this.freq = freq;
+    }
+}
+class Solution {
+    public int leastInterval(char[] tasks, int n) {
+        Map<Character, Task> map = new HashMap<>();
+
+        for(char c: tasks){
+            map.putIfAbsent(c, new Task(0));
+            map.get(c).freq++;
+        }
+        PriorityQueue<Task> pq = new PriorityQueue<>((a,b)->b.freq-a.freq);
+        Queue<Task> queue = new LinkedList<>();
+
+        pq.addAll(map.values());
+        int time = 0;
+
+        while(!pq.isEmpty() || !queue.isEmpty()){
+            if(pq.isEmpty()){
+                time = queue.peek().lastUsed + n + 1;
+            }
+            while(!queue.isEmpty() && time > queue.peek().lastUsed + n){
+                pq.add(queue.poll());
+            }
+            Task t = pq.poll();
+            t.lastUsed = time;
+            time++;
+            t.freq--;
+            
+        
+            if(t.freq!=0) queue.add(t);
+        }
+        return time;
+    }
+}
+```
