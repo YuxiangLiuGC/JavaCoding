@@ -1111,3 +1111,76 @@ class Solution {
     }
 }
 ```
+355. Design Twitter
+```java
+class Twitter {
+    static class Tweet{
+        int tweetId,timePosted;
+        public Tweet(int tweetId, int timePosted){
+            this.tweetId = tweetId;
+            this.timePosted = timePosted;
+        }
+    }
+    static int timeStamp;
+    Map<Integer, Set<Integer>> following;
+    Map<Integer, List<Tweet>> tweets;
+
+    public Twitter() {
+        timeStamp = 0;
+        following = new HashMap<>();
+        tweets = new HashMap<>();
+    }
+    
+    public void postTweet(int userId, int tweetId) {
+        if(!tweets.containsKey(userId)){
+            tweets.put(userId, new LinkedList<>());
+            follow(userId, userId); // Follow yourself to make your tweet appear in the new feeds
+        }
+        List<Tweet> list = tweets.get(userId);
+        list.add(0, new Tweet(tweetId, timeStamp));
+        timeStamp++;
+    }
+    
+    public List<Integer> getNewsFeed(int userId) {
+        PriorityQueue<Tweet> pq = new PriorityQueue<>((a,b)->a.timePosted-b.timePosted);// Min heap
+        if(!tweets.isEmpty()){
+            Set<Integer> followee = following.get(userId);
+            for(int followeeId: followee){
+                List<Tweet> tweetsById = tweets.get(followeeId);
+                for(Tweet t: tweetsById){
+                    if(pq.size()<10) pq.add(t);
+                    else{
+                        if(t.timePosted > pq.peek().timePosted){
+                            pq.add(t);
+                            pq.poll();
+                        }else break; 
+                        //^ If the time of t is earlier than the oldest time in the heap,
+                        // we don't need to check the rest if the tweets posted by this user,
+                        // Bc as we traverse the LinkedList, the time of post is getting older
+                    }
+                }
+            }
+        }
+        List<Integer> res = new LinkedList<>();
+        while(!pq.isEmpty()){
+            res.add(0, pq.poll().tweetId);
+        }
+        return res;
+    }
+    
+    public void follow(int followerId, int followeeId) {
+        if(!following.containsKey(followerId)){
+            following.put(followerId, new HashSet<>());
+        }
+        Set<Integer> set = following.get(followerId);
+        set.add(followeeId);
+    }
+    
+    public void unfollow(int followerId, int followeeId) {
+        if(!following.containsKey(followerId) || followerId == followeeId) return;
+        Set<Integer> set = following.get(followerId);
+        set.remove(followeeId);
+    }
+}
+//
+```
