@@ -1185,7 +1185,7 @@ class Twitter {
 //
 ```
 
-295. Find Median from Data Stream
+###### 295. Find Median from Data Stream
 ```java
 class MedianFinder {
     PriorityQueue<Integer> min;
