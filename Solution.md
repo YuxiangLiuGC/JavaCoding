@@ -1212,3 +1212,61 @@ class MedianFinder {
     }
 }
 ```
+
+###### 130. Surrounded Regions
+```java
+class Solution {
+    public void solve(char[][] board) {
+        
+        int m = board.length, n = board[0].length;
+        
+        for(int row=0; row<m; row++){
+            if(board[row][0]=='O'){
+                helper(board, row, 0);
+            }
+            if(board[row][n-1]=='O'){
+                helper(board, row, n-1);
+            }
+        }
+        for(int col=0; col<n; col++){
+            if(board[0][col]=='O'){
+                helper(board, 0, col);
+            }
+            if(board[m-1][col]=='O'){
+                helper(board, m-1, col);
+            }
+        }
+        for(int row=0; row<m; row++){
+            for(int col=0; col<n; col++){
+                if(board[row][col]=='*'){
+                    board[row][col]='O';
+                }else if(board[row][col]=='O'){
+                    board[row][col]='X';
+                }
+            }
+        }
+    }
+    private void helper(char[][] board, int row, int col){
+        if(row<0 || col<0 || row==board.length || col==board[0].length){
+            return;
+        }
+        // All the 'O's that touch the edge grids are not to be flipped to 'X'
+        // So mark them '*' first
+        if(board[row][col]=='O'){
+            board[row][col]='*';
+        }
+        if(row>1 && board[row-1][col]=='O'){
+            helper(board, row-1, col);
+        }
+        if(row<board.length-2 && board[row+1][col]=='O'){
+            helper(board, row+1, col);
+        }
+        if(col>1 && board[row][col-1]=='O'){
+            helper(board, row, col-1);
+        }
+        if(col<board[0].length-2 && board[row][col+1]=='O'){
+            helper(board, row, col+1);
+        }
+    }
+}
+```
