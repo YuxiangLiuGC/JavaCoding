@@ -1220,6 +1220,7 @@ class Solution {
         
         int m = board.length, n = board[0].length;
         
+        // left and right edge cells
         for(int row=0; row<m; row++){
             if(board[row][0]=='O'){
                 helper(board, row, 0);
@@ -1228,6 +1229,7 @@ class Solution {
                 helper(board, row, n-1);
             }
         }
+        // top and bottom edge cells
         for(int col=0; col<n; col++){
             if(board[0][col]=='O'){
                 helper(board, 0, col);
@@ -1240,7 +1242,9 @@ class Solution {
             for(int col=0; col<n; col++){
                 if(board[row][col]=='*'){
                     board[row][col]='O';
-                }else if(board[row][col]=='O'){
+                //The rest of the 'O's that haven't being marked as '*' 
+                // are the isolated ones surrounded by 'X'
+                }else if(board[row][col]=='O'){ 
                     board[row][col]='X';
                 }
             }
@@ -1250,11 +1254,12 @@ class Solution {
         if(row<0 || col<0 || row==board.length || col==board[0].length){
             return;
         }
-        // All the 'O's that touch the edge grids are not to be flipped to 'X'
+        // All the 'O's that touch the edge cells are not to be flipped to 'X'
         // So mark them '*' first
         if(board[row][col]=='O'){
             board[row][col]='*';
         }
+        // Going up and make sure not touching the upper edge cells
         if(row>1 && board[row-1][col]=='O'){
             helper(board, row-1, col);
         }
