@@ -1275,3 +1275,33 @@ class Solution {
     }
 }
 ```
+
+###### 286. Walls and Gates
+```java
+class Solution {
+    public void wallsAndGates(int[][] rooms) {
+        for(int i=0; i<rooms.length; i++){
+            for(int j=0; j<rooms[0].length; j++){
+                if(rooms[i][j]==0){
+                    helper(rooms, i, j, 0);
+                }
+            }
+        }
+    }
+    private void helper(int[][] rooms, int row, int col, int dis){
+        if(row<0 || col<0 || row==rooms.length || col==rooms[0].length || rooms[row][col]==-1){
+            return;
+        }
+        // Previous traversed path is shorter && prevent early stop starting from the gate
+        // When a gate meet another gate, recursion will stop
+        if(rooms[row][col] <= dis && dis != 0){
+            return;
+        }
+        rooms[row][col] = dis;
+        helper(rooms, row+1, col, dis+1);
+        helper(rooms, row-1, col, dis+1);
+        helper(rooms, row, col+1, dis+1);
+        helper(rooms, row, col-1, dis+1);
+    }
+}
+```
