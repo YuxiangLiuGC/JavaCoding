@@ -1292,8 +1292,9 @@ class Solution {
         if(row<0 || col<0 || row==rooms.length || col==rooms[0].length || rooms[row][col]==-1){
             return;
         }
-        // Previous traversed path is shorter && prevent early stop starting from the gate
-        // When a gate meet another gate, recursion will stop
+        // Either getting gate or empty room
+        // Previous traversed path is shorter && prevent early stopping from the gate
+        // When a gate meets another gate, "dis!=0" is true and recursion will stop
         if(rooms[row][col] <= dis && dis != 0){
             return;
         }
