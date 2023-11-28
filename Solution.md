@@ -1306,3 +1306,37 @@ class Solution {
     }
 }
 ```
+
+###### 323. Number of Connected Components in an Undirected Graph
+```java
+class Solution {
+    public int countComponents(int n, int[][] edges) {
+        List<List<Integer>> graph = new ArrayList<>();
+        for(int i=0; i<n; i++){
+            graph.add(new ArrayList<>());
+        }
+        for(int[] edge: edges){
+            graph.get(edge[0]).add(edge[1]);
+            graph.get(edge[1]).add(edge[0]);
+        }
+        Set<Integer> visited = new HashSet<>();
+        int count=0;
+
+        for(int i=0; i<n; i++){
+            if(!visited.contains(i)){
+                count++;
+                helper(graph, i, visited);
+            }
+        }
+        return count;
+    }
+    private void helper(List<List<Integer>> graph, int start, Set<Integer> visited){
+        visited.add(start);
+        for(int node: graph.get(start)){
+            if(!visited.contains(node)){
+                helper(graph, node, visited);
+            }
+        }
+    }
+}
+```
