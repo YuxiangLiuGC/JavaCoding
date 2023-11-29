@@ -1340,3 +1340,33 @@ class Solution {
     }
 }
 ```
+
+###### 261. Graph Valid Tree
+```java
+class Solution {
+    public boolean validTree(int n, int[][] edges) {
+        List<List<Integer>> graph = new ArrayList<>();
+        for(int i=0; i<n; i++){
+            graph.add(new ArrayList<>());
+        }
+        for(int[] edge: edges){
+            graph.get(edge[0]).add(edge[1]);
+            graph.get(edge[1]).add(edge[0]);
+        }
+        Set<Integer> visited = new HashSet<>();
+        if(!helper(graph, visited, 0, -1)) return false;
+        // If all nodes are connected, a dfs will traverse all the nodes
+        if(visited.size() != n) return false;
+        
+        return true;
+    }
+    private boolean helper(List<List<Integer>> graph, Set<Integer> visited, int start, int prev){
+        visited.add(start);
+        for(int node: graph.get(start)){
+            if(node==prev) continue;
+            if(visited.contains(node) || !helper(graph, visited, node, start)) return false;
+        }
+        return true;
+    }
+}
+```
