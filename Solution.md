@@ -1370,3 +1370,44 @@ class Solution {
     }
 }
 ```
+
+###### 127. Word Ladder
+```java
+class Solution {
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        Set<String> dict = new HashSet<>(wordList);
+        if(!dict.contains(endWord)) return 0; // dict needs to have endWord
+        Queue<String> queue = new LinkedList<>();
+        //Make sure the bfs not going back checking as same as the beginWord
+        dict.remove(beginWord); 
+        queue.add(beginWord);
+        int level = 2;
+
+        while(!queue.isEmpty()){
+            // Make sure the queue size remains the same in the for loop
+            int size = queue.size();
+            for(int i=0; i<size; i++){
+                String s = queue.poll();
+
+                for(int j=0; j<s.length(); j++){
+                    char[] arr = s.toCharArray();
+
+                    for(char c='a'; c<='z'; c++){
+                        arr[j] = c;
+                        String temp = new String(arr);
+                        
+                        if(temp.equals(endWord)){
+                            return level;
+                        }
+                        if(dict.remove(temp)){
+                            queue.add(temp);
+                        }
+                    }
+                }
+            }
+            level++;
+        }
+        return 0;
+    }
+}
+```
