@@ -1411,3 +1411,5 @@ class Solution {
     }
 }
 ```
+Time complexity: O(n^2 * m), where n is the size of dict, m is the length of a word in dict
+Why n^2? Beacuse it's possible we going back during the BFS: abc->abd->abe->abd->abc
