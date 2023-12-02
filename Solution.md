@@ -1413,3 +1413,30 @@ class Solution {
 ```
 Time complexity: O(n^2 * m), where n is the size of dict, m is the length of a word in dict
 Why n^2? Beacuse it's possible we going back during the BFS: abc->abd->abe->abd->abc
+
+###### 332. Reconstruct Itinerary
+```java
+class Solution {
+    Map<String, PriorityQueue<String>> graph;
+    LinkedList<String> res;
+    public List<String> findItinerary(List<List<String>> tickets) {
+        graph = new HashMap<>();
+        res = new LinkedList<>();
+
+        for(List<String> ticket: tickets){
+            graph.putIfAbsent(ticket.get(0), new PriorityQueue<>());
+            graph.get(ticket.get(0)).add(ticket.get(1));
+        }
+        helper("JFK");
+        return res;
+    }
+    private void helper(String departure){
+        PriorityQueue<String> arrivals = graph.get(departure);
+        while(arrivals!=null && !arrivals.isEmpty()){ // Backtracking
+            helper(arrivals.poll());
+        }
+        // First runs into dead end will be added first, as the last node in the list
+        res.addFirst(departure); 
+    }
+}
+```
