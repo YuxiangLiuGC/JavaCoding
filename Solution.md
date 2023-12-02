@@ -1440,3 +1440,8 @@ class Solution {
     }
 }
 ```
+Time complexity: O(n * log k), where 'n' is the number of tickets and 'k' is the maximum number of destinations from a single source. 
+Insertion into the PriorityQueue has a complexity of O(log k) per insertion. In the backtracking process, each edge in the graph is 
+traversed exactly once. The time complexity for this backtracking process is O(n).
+Space complexity: O(n), The graph representation contributes O(n) space complexity. The call stack during recursion contributes O(n)
+space complexity in the worst case.
