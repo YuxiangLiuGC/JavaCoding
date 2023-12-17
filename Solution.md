@@ -1476,7 +1476,7 @@ class Solution {
     }
 }
 ```
-optimized:
+Optimized:
 ```java
 class Solution {
     public int minCostConnectPoints(int[][] points) {
@@ -1512,3 +1512,4 @@ class Solution {
     }
 }
 ```
+Time complexity: O(n^2 * log n), where n is the number of points
