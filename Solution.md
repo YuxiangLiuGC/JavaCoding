@@ -1445,3 +1445,70 @@ Insertion into the PriorityQueue has a complexity of O(log k) per insertion. In 
 traversed exactly once. The time complexity for this backtracking process is O(n).
 Space complexity: O(n), The graph representation contributes O(n) space complexity. The call stack during recursion contributes O(n)
 space complexity in the worst case.
+
+###### 1584. Min Cost to Connect All Points
+```java
+class Solution {
+    public int minCostConnectPoints(int[][] points) {
+        int res = 0;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b)->a[0]-b[0]);//a is distance, b is point
+        pq.add(new int[]{0,0});// Starting with 0 and the distance to point 0 is 0
+        boolean[] visited = new boolean[points.length];
+
+        while(!pq.isEmpty()){
+            int[] edge = pq.poll();
+            int dis = edge[0];
+            int p = edge[1];
+
+            if(visited[p]) continue;
+            res += dis; // If p hasn't being visited, we will connect this point
+            visited[p] = true;
+
+            for(int i=0; i<points.length; i++){
+                if(!visited[i]){
+                    int distance = Math.abs(points[i][0]-points[p][0])+
+                                   Math.abs(points[i][1]-points[p][1]);
+                    pq.add(new int[]{distance, i});
+                }
+            }
+        }
+        return res;
+    }
+}
+```
+optimized:
+```java
+class Solution {
+    public int minCostConnectPoints(int[][] points) {
+        int res = 0;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b)->a[0]-b[0]);//a is distance, b is point
+        pq.add(new int[]{0,0});// Starting with 0 and the distance to point 0 is 0
+        boolean[] visited = new boolean[points.length];
+        Map<Integer, Integer> map = new HashMap<>();// point, distance
+        map.put(0,0);
+
+        while(!pq.isEmpty()){
+            int[] edge = pq.poll();
+            int dis = edge[0];
+            int p = edge[1];
+
+            if(visited[p]) continue;
+            res += dis; // If p hasn't being visited, we will connect this point
+            visited[p] = true;
+
+            for(int i=0; i<points.length; i++){
+                if(!visited[i]){
+                    int distance = Math.abs(points[i][0]-points[p][0])+
+                                   Math.abs(points[i][1]-points[p][1]);
+                    if(distance < map.getOrDefault(i, Integer.MAX_VALUE)){
+                        pq.add(new int[]{distance, i});
+                        map.put(i, distance);
+                    }
+                    
+                }
+            }
+        }
+        return res;
+    }
+}
+```
